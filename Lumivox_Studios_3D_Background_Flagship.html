@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lumivox Studios Flagship</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#05070d;color:#fff;font-family:Inter,Arial,sans-serif;overflow-x:hidden}
+#bg{position:fixed;inset:0;z-index:-1}
+header{position:fixed;top:0;width:100%;padding:20px 6%;display:flex;justify-content:space-between;backdrop-filter:blur(12px);background:rgba(0,0,0,.25)}
+.logo{font-size:2rem;font-weight:800;color:#d4af37}
+nav a{color:#fff;text-decoration:none;margin-left:20px}
+.hero{height:100vh;display:flex;align-items:center;justify-content:center;text-align:center;padding:20px}
+.hero h1{font-size:5rem}
+.gold{color:#d4af37}
+.btn{display:inline-block;margin-top:20px;padding:14px 28px;background:#d4af37;color:#000;text-decoration:none;border-radius:40px;font-weight:700}
+section{padding:100px 8%}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:24px}
+.card{background:rgba(255,255,255,.06);backdrop-filter:blur(12px);padding:24px;border-radius:20px}
+footer{text-align:center;padding:40px;background:rgba(0,0,0,.4)}
+</style>
+</head>
+<body>
+<canvas id="bg"></canvas>
+
+<header>
+<div class="logo">LUMIVOX</div>
+<nav>
+<a href="#about">About</a>
+<a href="#services">Services</a>
+<a href="#contact">Contact</a>
+</nav>
+</header>
+
+<div class="hero">
+<div>
+<h1><span class="gold">LUMIVOX</span> STUDIOS</h1>
+<p>Building Digital Experiences Beyond Imagination</p>
+<a class="btn" href="#contact">Start a Project</a>
+</div>
+</div>
+
+<section id="about">
+<h2>About Lumivox</h2>
+<div class="card">
+Lumivox Studios is a creative technology agency founded by Sufiyan Absar, focused on websites, AI solutions, branding, automation, and immersive digital experiences.
+</div>
+</section>
+
+<section id="services">
+<h2>Services</h2>
+<div class="cards">
+<div class="card">Website Development</div>
+<div class="card">AI Solutions</div>
+<div class="card">Automation Systems</div>
+<div class="card">Brand Identity</div>
+<div class="card">Custom Software</div>
+<div class="card">Creative Campaigns</div>
+</div>
+</section>
+
+<section id="contact">
+<h2>Contact</h2>
+<div class="card">
+Email: zuelen843@hotmail.com<br><br>
+Powered by Sufiyan Absar
+</div>
+</section>
+
+<footer>
+Lumivox Studios • Creating Digital Experiences Beyond Imagination
+</footer>
+
+<script>
+const c=document.getElementById('bg');
+const ctx=c.getContext('2d');
+function resize(){c.width=innerWidth;c.height=innerHeight}
+resize(); addEventListener('resize',resize);
+
+let pts=[];
+for(let i=0;i<120;i++){
+ pts.push({x:Math.random()*innerWidth,y:Math.random()*innerHeight,vx:(Math.random()-.5)*0.5,vy:(Math.random()-.5)*0.5});
+}
+function draw(){
+ ctx.clearRect(0,0,c.width,c.height);
+ for(let p of pts){
+   p.x+=p.vx; p.y+=p.vy;
+   if(p.x<0||p.x>c.width)p.vx*=-1;
+   if(p.y<0||p.y>c.height)p.vy*=-1;
+   ctx.beginPath();
+   ctx.arc(p.x,p.y,2,0,Math.PI*2);
+   ctx.fillStyle='#d4af37';
+   ctx.fill();
+ }
+ for(let i=0;i<pts.length;i++){
+   for(let j=i+1;j<pts.length;j++){
+     let dx=pts[i].x-pts[j].x, dy=pts[i].y-pts[j].y;
+     let d=Math.sqrt(dx*dx+dy*dy);
+     if(d<120){
+       ctx.strokeStyle='rgba(212,175,55,'+(1-d/120)*0.25+')';
+       ctx.beginPath();
+       ctx.moveTo(pts[i].x,pts[i].y);
+       ctx.lineTo(pts[j].x,pts[j].y);
+       ctx.stroke();
+     }
+   }
+ }
+ requestAnimationFrame(draw);
+}
+draw();
+</script>
+</body>
+</html>
