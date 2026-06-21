@@ -1,0 +1,47 @@
+/* Ensure no scrollbars and full height */
+html, body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    overflow-x: hidden;
+}
+
+/* Wrapper to hold the iframe */
+.bg-wrapper {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: -1;
+    overflow: hidden;
+    background-color: #000; /* Fallback color */
+}
+
+/* The Iframe styling */
+.background-model {
+    width: 100vw;
+    height: 100vh;
+    pointer-events: none; /* Makes the model non-interactive so user can click links */
+    border: none;
+}
+
+/* Ensure your main content is visible above the background */
+.content {
+    position: relative;
+    z-index: 1;
+    color: white;
+    font-family: sans-serif;
+    padding: 50px;
+}
+
+/* Mobile optimization: Switch to image if screen is too small */
+@media (max-width: 768px) {
+    .background-model {
+        display: none;
+    }
+    .bg-wrapper {
+        background: url('path-to-fallback-image.jpg') center/cover;
+    }
+  }
